@@ -1,0 +1,6 @@
+Do you know how to ROP?
+
+nc 138.197.205.79 80
+
+The flag is at /opt/ctf/flag
+

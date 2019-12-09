@@ -1,0 +1,60 @@
+//Definicion de las funciones exportadas en el interfaz.
+// References: http://www.hsc.fr/ressources/articles/win_net_srv/msrpc_dns.html
+[ uuid (50abc2a4-574d-40b3-9d66-ee4fd5fba076),
+  version(5.0),
+  pointer_default(unique)
+]
+interface dnsserver
+{
+
+//0x00
+void DnssrvOperation( 
+[in] long parama,  //ignored?
+[in, string] unsigned char *paramb,
+[in] long paramc,
+[in,string] unsigned char *paramd,
+[in] long parame,
+[in] unsigned char *paramf );
+
+//0x01
+long DnssrvQuery(
+[in] [unique]  [string] wchar_t * parama,
+[in] [unique]  [string] unsigned char * paramb,
+[in] [unique]  [string] unsigned char * paramc,
+[in]  long * paramd,
+[out]  long *parame);
+
+/*
+long  DnsQuery( 
+[in] [unique]  [string] wchar_t * element_400,
+[in] [unique]  [string] char * element_401,
+[in] [unique]  [string] char * element_402,
+[out]  long * element_403,
+[out]  TYPE_1 * element_404
+ );
+
+*/
+
+void DnssrvComplexOperation(void);
+void DnssrvEnumRecords(void);
+void DnssrvUpdateRecord(void);
+void DnssrvOperation2(void);
+
+//0x06
+long  DnssrvQuery2 (
+[in]  long  parama,
+[in]  long  paramb,
+[in] [unique]  [string] wchar_t * paramc,
+[in] [unique]  [string] char * paramd,
+[in] [unique]  [string] char * parame,
+[out] long *paramf, //<- Maybe in??
+[out] long *paramg);
+/*
+-	0x05	DnssrvOperation2
+-	0x06	DnssrvQuery2
+-	0x07	DnssrvComplexOperation2
+-	0x08	DnssrvEnumRecords2
+-	0x09	DnssrvUpdateRecord2
+*/
+
+}

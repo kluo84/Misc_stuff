@@ -1,0 +1,6 @@
+Time to hunt some monsters! Every ctf needs a C++ pwnable right?
+
+nc 206.189.64.44 80
+
+The flag is at /opt/ctf/flag
+

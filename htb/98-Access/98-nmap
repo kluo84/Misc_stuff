@@ -1,0 +1,20 @@
+# Nmap 7.70 scan initiated Tue Oct 30 14:19:46 2018 as: nmap -sV -sC -o 98-nmap 10.10.10.98
+Nmap scan report for 10.10.10.98
+Host is up (0.089s latency).
+Not shown: 997 filtered ports
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     Microsoft ftpd
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_Can't get directory listing: PASV failed: 425 Cannot open data connection.
+| ftp-syst: 
+|_  SYST: Windows_NT
+23/tcp open  telnet?
+80/tcp open  http    Microsoft IIS httpd 7.5
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/7.5
+|_http-title: MegaCorp
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Tue Oct 30 14:26:32 2018 -- 1 IP address (1 host up) scanned in 405.95 seconds

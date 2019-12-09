@@ -1,0 +1,4 @@
+We got our hands on a unique system with a processor we haven't seen before. It's a small SoC with just 65 kB of RAM, and a serial input/output port. We had JTAG debugging capabilities on the device, so we ran several of the programs we procured and dumped all the registers before single-stepping each instruction, and we saved these dumps in some text files. However, one of our men spilled some coffee on the board and fried it before we had obtained the program that we know prints the flag, so we can't run it! We need you to take a look at the programs and the register dumps and see if you can help us!
+
+(Note: the flag for this challenge is in "flag{...}" format.)
+

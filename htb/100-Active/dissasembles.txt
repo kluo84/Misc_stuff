@@ -1,0 +1,295 @@
+  Vulnerability Analysis:
+
+  The function Lookup_ZoneTreeNodeFromDottedName() uses a fixed local buffer to convert
+  a string calling Name_ConvertFileNameToCountName(), this string can contain back-slash 
+  octal characters. Although some bounds checks are done when writting to the buffer is 
+  still possible to bypass them using a string with multiple backslashed chars, resulting
+  in a stack based buffer overflow.
+
+  This function can be reached through DNS RPC Interface, the execution flow 
+  will be as follows:
+
+  R_DnssrvQuery(pa,buggybuffer,pc,DesiredAccess,pd);                  // RPC Exported function
+  R_DnssrvQuery2(0,0,pa,buggybuffer,pc,DesiredAccess,pd);      
+  RpcUtil_FindZone(buggybuffer,1,DesiredAccess);  
+  Zone_FindZoneByName(buggybuffer);                                   // Here we go!
+  Lookup_ZoneTreeNodeFromDottedName(buggybuffer,0,0x2000000);
+	  	  Name_ConvertFileNameToCountName(localbuffer,buggybuffer,0); // Using fixed size local buffer
+					extractQuotedChar(x,x,buggybuffer);               // Extract octal number  	     
+
+/****************************************************************************
+  Disassemblies:
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+__stdcall Lookup_ZoneTreeNodeFromDottedName(x, x, x) proc near
+                                                              
+localbuff       = dword ptr -1D4h                             
+var_D0          = dword ptr -0D0h                             
+sec_cookie      = dword ptr -4                                
+buggybuffer     = dword ptr  8                                
+arg_4           = dword ptr  0Ch                              
+arg_8           = dword ptr  10h                              
+                                                              
+                mov     edi, edi                              
+                push    ebp                                   
+                mov     ebp, esp                              
+                sub     esp, 1D4h                             
+                mov     eax, ___security_cookie               
+                push    [ebp+arg_4]                           
+                mov     [ebp+sec_cookie], eax                
+                mov     eax, [ebp+buggybuffer]                
+                push    eax                                   
+                lea     eax, [ebp+localbuff]                  
+                push    eax                                   
+                call    Name_ConvertFileNameToCountName(x,x,x)
+                cmp     eax, 7Bh                              
+                jz      short loc_103D873                     
+                lea     eax, [ebp+var_D0]                     
+                push    eax                                   
+                lea     eax, [ebp+localbuff+2]                
+                push    eax                                   
+                call    Name_ConvertRawNameToLookupName(x,x)  
+                test    eax, eax                              
+                jnz     short loc_103D877                     
+                                                              
+loc_103D873:                            ; CODE XREF: Lookup_Zo
+                xor     eax, eax                              
+                jmp     short loc_103D886                     
+; ------------------------------------------------------------
+                                                              
+loc_103D877:                            ; CODE XREF: Lookup_Zo
+                push    [ebp+arg_8]                           
+                lea     eax, [ebp+var_D0]                     
+                push    eax                                   
+                call    Lookup_ZoneTreeNode(x,x)              
+                                                              
+loc_103D886:                            ; CODE XREF: Lookup_Zo
+                mov     ecx, [ebp+sec_cookie]                 
+                call    __security_check_cookie(x)            
+                leave                                         
+                retn    0Ch                                   
+__stdcall Lookup_ZoneTreeNodeFromDottedName(x, x, x) endp     
+
+ /////////////////////////////////////////////////////////////////////////////////////////////////////
+ __stdcall Name_ConvertFileNameToCountName(x, x, x) proc near
+                                        
+                                        
+bufflimit       = dword ptr -0Ch
+var_8           = dword ptr -8
+bUnk            = byte ptr -1
+localbuff       = dword ptr  8
+buggybuffer     = dword ptr  0Ch
+bufsize         = dword ptr  10h
+
+                mov     edi, edi
+                push    ebp
+                mov     ebp, esp
+                sub     esp, 0Ch
+                mov     eax, [ebp+localbuff]
+                push    esi
+                mov     esi, [ebp+buggybuffer]
+                test    esi, esi             ; if (!buggybuffer)
+                mov     [ebp+bUnk], 0
+                jnz     short _@1
+                mov     byte ptr [eax], 0    ; ~strcpy(localbuff,"\0\0\0");
+                mov     byte ptr [eax+1], 0
+                mov     byte ptr [eax+2], 0
+                xor     eax, eax             ; return 0;
+                jmp     short __goout
+; ---------------------------------------------------------------------------
+
+_@1:                                   
+                push    ebx
+                lea     ebx, [eax+2]           ; ebx points to localbuff + 2
+                lea     ecx, [ebx+0FFh]        ; ecx points to localbuff + 257d
+                mov     [ebp+bufflimit], ecx   ; This seems to be the localbuff limit
+                mov     ecx, [ebp+bufsize]
+                push    edi
+                mov     [ebp+var_8], ebx
+                inc     ebx                    ; ebx points to localbuff + 3
+                test    ecx, ecx               ; Have we a fixed buffer size?
+                mov     edi, esi               ; edi = buggybuffer
+                mov     [ebp+buggybuffer], edi ; wtf..
+                jnz     short getendofbuffer
+                mov     ecx, esi               ; ecx = buggybuffer
+                lea     edi, [ecx+1]           ; edi points to buggybuffer + 1
+
+_@2:                                    
+                mov     dl, [ecx]
+                inc     ecx                    ; ecx will point to buggybuffer + strlen(buggybuffer)
+                test    dl, dl
+                jnz     short _@2
+                sub     ecx, edi               ; ecx = strlen(buggybuffer) - 1
+                mov     edi, [ebp+buggybuffer]
+
+getendofbuffer:                         
+                add     esi, ecx
+                mov     [ebp+buggybuffer], esi ; buggybuffer = buggybuffer + strlen(buggybuffer) - 1
+
+nextChar:                               
+                                        
+                cmp     edi, [ebp+buggybuffer] ; Have we reached the end of the buffer?
+                jb      short _@3              ; we still have bytes ...
+                xor     cl, cl
+                mov     edx, 0A011h
+                jmp     short _@4
+; ---------------------------------------------------------------------------
+
+_@3:                                    
+                mov     cl, [edi]                            ; get char from buggybuffer
+                movzx   edx, cl
+                mov     dx, _DnsFileCharPropertyTable[edx*2] ; dx = table[buggybuffer[i] * sizeof(entry)];
+                inc     edi                                  ; next char ...
+
+_@4:                                    
+                test    dl, 1Ch                              ; Check this character "property"
+                jnz     short _@5
+                cmp     ebx, [ebp+bufflimit]                 ; End of localbuffer?
+                jb      short _@6                            ; else write byte and go for next char
+
+_@7:                                    
+                                        
+                push    7Bh
+                pop     eax                                  ; return(0x7B);
+
+_@8:                                    
+                pop     edi
+                pop     ebx
+
+__goout:                                
+                pop     esi
+                leave                   ; bye, bye!
+                retn    0Ch
+; ---------------------------------------------------------------------------
+
+_@5:                                    
+                test    dl, 4           ; Property check..
+                jz      short _@9
+                cmp     ebx, [ebp+bufflimit]
+                jnb     short _@7
+                add     cl, 20h
+
+_@6:                                    
+                mov     [ebx], cl       ; Write byte to local buffer
+                inc     ebx             ; next position ...
+                jmp     short nextChar
+; ---------------------------------------------------------------------------
+
+_@9:                                    
+                test    dl, 10h         ; Property check..
+                jz      short _@10
+                mov     esi, [ebp+var_8]
+                mov     edx, ebx
+                sub     edx, esi
+                dec     edx
+                cmp     edx, 3Fh
+                jg      short _@7
+                mov     [ebp+var_8], ebx
+                inc     ebx
+                cmp     edi, [ebp+buggybuffer]
+                mov     [esi], dl
+                jnb     short loc_10155DC
+                test    edx, edx
+                jz      short _@7
+                inc     [ebp+bUnk]
+                jmp     short nextChar
+; ---------------------------------------------------------------------------
+
+_@10:                                   
+                cmp     cl, '\'                  ; backslash? ;-)
+                jnz     short nextChar
+                push    [ebp+buggybuffer]        ; lpLimit
+                push    edi                      ; lpChar
+                push    ebx                      ; lpOutChar
+                call    extractQuotedChar(x,x,x)
+                mov     edi, eax                 ; edi points now to next byte in the buggybuffer
+                mov     eax, [ebp+localbuff]
+                inc     ebx                      ; next position in localbuffer
+                jmp     short nextChar
+; ---------------------------------------------------------------------------
+
+loc_10155DC:                            
+                test    edx, edx
+                jz      short loc_10155EB
+                mov     edx, [ebp+var_8]
+                inc     [ebp+bUnk]
+                mov     byte ptr [edx], 0
+                jmp     short loc_10155EC
+; ---------------------------------------------------------------------------
+
+loc_10155EB:                            
+                dec     ebx
+
+loc_10155EC:                            
+                mov     dl, [ebp+bUnk]
+                neg     cl
+                mov     [eax+1], dl
+                sbb     ecx, ecx
+                sub     bl, al
+                add     ecx, 2556h
+                sub     bl, 2
+                mov     [eax], bl
+                mov     eax, ecx
+                jmp     _@8
+__stdcall Name_ConvertFileNameToCountName(x, x, x) endp
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+__stdcall extractQuotedChar(x, x, x) proc near
+                                        
+                                        
+
+lpOutChar       = dword ptr  8
+lpChar          = dword ptr  0Ch
+lpLimit         = dword ptr  10h
+
+                mov     edi, edi
+                push    ebp
+                mov     ebp, esp
+                mov     eax, [ebp+lpChar]
+                push    esi
+                xor     dl, dl          ; dl = 0;
+                xor     esi, esi
+                jmp     short _checkbounds
+; ---------------------------------------------------------------------------
+
+_readchar:                              
+                mov     cl, [eax]       ; Get byte ...
+                inc     eax             ; lpChar++; retval = lpChar;
+                cmp     cl, '0'
+                jl      short _skipchar ; if (*lpChar < '0' || *lpChar > '7' ) jmp _skipchar
+                cmp     cl, '7'
+                jg      short _skipchar
+                add     dl, 1Ah         ; dl = ( (dl + 0x1A) << 3 ) + *lpChar;
+                shl     dl, 3
+                add     dl, cl
+                inc     esi
+                cmp     esi, 3          ; third char?
+                jz      short goout
+
+_checkbounds:                           
+                cmp     eax, [ebp+lpLimit]
+                jbe     short _readchar
+                jmp     short goout
+; ---------------------------------------------------------------------------
+
+_skipchar:                              
+                                        
+                test    esi, esi        ; if is not an octal number just write the raw byte
+                jz      short _writebyte
+                dec     eax             ; retval = lpChar + length(octalnumber)
+
+goout:                                  
+                                        
+                mov     cl, dl          ; else write the converted byte
+
+_writebyte:                             
+                mov     edx, [ebp+lpOutChar]
+                mov     [edx], cl       ; Write unslashed char
+                pop     esi
+                pop     ebp             ; ~ return(retval);
+                retn    0Ch
+__stdcall extractQuotedChar(x, x, x) endp
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+*/

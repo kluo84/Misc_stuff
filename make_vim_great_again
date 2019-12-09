@@ -1,0 +1,6 @@
+cd ~
+git clone https://github.com/rwoliver2/my-vim-config .rwoliver2-vim-config
+ln -s ~/.rwoliver2-vim-config/.vim
+ln -s ~/.rwoliver2-vim-config/.vimrc
+
+Run vim, then hit ESC and type :PlugInstall! and hit ENTER. Your plugins will be installed. Then exit and restart vim and installation will be complete.

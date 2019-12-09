@@ -1,0 +1,6 @@
+Every pwner starts with a basic stack overflow... this is not a basic stack overflow
+
+nc 159.65.70.24 80
+
+The flag is at /opt/ctf/flag
+

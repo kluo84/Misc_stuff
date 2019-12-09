@@ -1,0 +1,3 @@
+
+newfriends: src/main.c src/externs.c Makefile
+	gcc -pie -ggdb -m32 src/main.c src/externs.c -o newfriends
