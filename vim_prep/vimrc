@@ -1,0 +1,73 @@
+syn on				    " Turn on syntax highlighting
+set nocompatible	    " Require for Vim coolness
+set nobk			    " Don't create backup files before writing
+set ai				    " Turn on auto indentation
+set si				    " Turn on smart indent
+set ru				    " Turn on the ruler
+set sc				    " Show commands
+set smarttab		    " Turn on smart tabs
+set expandtab		    " Exapnd tabs to spaces
+set tabstop=4			" TAB becomes X spaces 
+set softtabstop=4		" TAB becomes X spaces in Vim operations
+set shiftwidth=4		" Number of spaces for indentation 
+set bsdir=last			" When browsing files, go to the last folder
+set hlsearch			" Highlight search results
+set incsearch			" Turn on incremental searching
+set history=100			" Keep X number of commands in history
+set number			    " Turn on line numbers
+set t_Co=256			" Enable 256 colors
+
+" Allow backspace in insert mode
+set backspace=indent,eol,start	" Allow backspace in insert mode
+
+" Unless you're editing huge files, leave this line active. This disables
+" the swap file and puts all data in memory. Modern machines can handle this
+" just fine, but if you're limited on RAM, comment this out.
+set noswapfile			
+
+" Don't wake up system with blinking cursor
+let &guicursor = &guicursor . ",a:blinkon0"	
+
+" If gvim is running, set a font, otherwise don't
+if has('gui_running')
+  set guifont=Hack\ 16
+endif
+
+" Enable code folding by syntax and disable folding by default
+setlocal foldmethod=syntax
+setlocal nofoldenable
+
+" Press F7 to activate spell checking, F8 to turn it off.
+map <F7> <Esc>:setlocal spell spelllang=en_us<CR>
+map <F8> <Esc>:setlocal nospell<CR>
+
+" Plugins
+filetype plugin indent on
+
+" Install Plugins
+call plug#begin('~/vimfiles/plugged')
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'nelstrom/vim-markdown-folding'
+    Plug 'tpope/vim-markdown'
+    Plug 'vim-airline/vim-airline'
+call plug#end()
+
+" Enable Markdown folding
+set foldenable
+
+" Make airline appear all the time
+set laststatus=2
+
+" Show word count
+let g:airline#extensions#wordcount#enabled = 1	
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+
+" Force Airline to refresh after setup so settings work
+:autocmd!
+:autocmd VimEnter * :AirlineRefresh
+
+" Color scheme
+syntax on
+color morning
+hi Normal ctermbg=none
