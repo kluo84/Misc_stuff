@@ -4,6 +4,7 @@ wget https://raw.githubusercontent.com/kluo84/Misc_stuff/master/tmux.conf -O ~/.
 cd ~
 git clone https://github.com/kluo84/vim-prep.git ~/.vim-prep
 ln -s ~/.vim-prep/vim-prep/.vim
-ln -s ~/.vim-config/vim-prep/.vimrc
+ln -s ~/.vim-prep/vim-prep/.vimrc
+mv ~/.vim-prep/vimfiles . 
 
 #set :PlugInstall!
