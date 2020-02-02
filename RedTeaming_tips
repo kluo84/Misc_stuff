@@ -1,0 +1,5 @@
+- Do not use binaries for initial capabilities. Do not drop binaries on the system. Try to use build-in command to achieve the goals. If have no choices but drop the file on the systems, the binaries need to vetted, obfuscated, and tested against detection before use.
+- Do not download restricted datasets. NEVER download or take screenshots sensitive data such as PII, HIPPA, PCI. Just annotated the type, location, access method, and level of access.
+- Do not execute from non-executable locations. Executable locations are C:\ProgramData, C:\Program Files, C:\Windows. Execution from locations such as C:\Windows\Temp should never occur or be used with an understanding of risk.
+- Minimize callback (C2) volume
+- Do not attempt to exploit or attack unencrypted websites or applications. 
