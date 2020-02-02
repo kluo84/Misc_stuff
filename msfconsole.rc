@@ -1,0 +1,11 @@
+spool /root/.msf4/spool.log
+setg ConsoleLogging true
+setg verbose true
+setg LogLevel 5
+setg SessionLogging true
+setg TimestampOutput true
+setg PromptTimeFormat %Y%m%d.%H%M%S%z
+setg PROMPT %T S:%S J:%J
+setg ExitOnSession false
+setg DisableCourtesyShell true
+load sounds #optional
