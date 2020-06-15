@@ -1,0 +1,10 @@
+SimplyEmail -all -e domain
+
+##
+php /path/to/osinfo.php domain_name
+-> Sublist3r
+-> SimplyeMAIL
+-> Check PWN (HIBP)//API key in checkpwn email (Check apikey.txt)
+-> 
+-> remove hibp and ptp-breachs after move simplyemail result over -> rerun the php script. 
+-> keep the csv column the same after did the whois lookup -> upload to ptp (ptp-domain_#.csv
