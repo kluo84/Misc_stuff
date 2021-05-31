@@ -6,6 +6,7 @@
 #su debian
 display_usage() {
   echo "This script is using to set up the openvpn central server for remote client machines."
+  echo "Need to set up debian account on the CA server before run this script."
   echo -e "\nUsage: $0 [CA Server IP address] \n"
 }
 if [ $# -l 1 ]
