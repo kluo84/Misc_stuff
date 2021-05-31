@@ -1,9 +1,9 @@
 #!/bin/bash
 #usage
 # $1 is CA server IP
-useradd debian
-usermod -aG sudo debian
-su debian
+#useradd debian
+#usermod -aG sudo debian
+#su debian
 
 #run with non-root user with sudo privilege
 ssh-keygen -t rsa
@@ -35,7 +35,7 @@ ssh -i /home/debian/.ssh/id_rsa debian@$1 'cp ~/EasyRSA-3.0.8/vars.example ~/Eas
 ssh -i /home/debian/.ssh/id_rsa debian@$1 'sed -i "s/^#set_var/set_var/; s/California/Texas/; s/San Francisco/San Antonio/; s/me@example.net/info@motorolasolutions.com/; s/My Organizational Unit/Motorola Solutions/; " ~/EasyRSA-3.0.8/vars'
 ssh -i /home/debian/.ssh/id_rsa debian@$1 '~/EasyRSA-3.0.8/easyrsa init-pki'
 ssh -i /home/debian/.ssh/id_rsa debian@$1 '~/EasyRSA-3.0.8/easyrsa build-ca nopass'
-ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo cp ~/EasyRSA-3.0.8/pki/ca.crt /usr/local/share/ca-certificates/sudo update-ca-certificates;'
+ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo cp ~/EasyRSA-3.0.8/pki/ca.crt /usr/local/share/ca-certificates/; sudo update-ca-certificates;'
 ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo chown debian:debian /tmp/central-server.req; ~/EasyRSA-3.0.8/easyrsa import-req /tmp/central-server.req central-server'
 ssh -i /home/debian/.ssh/id_rsa debian@$1 'echo "Type YES and press Enter"; ~/EasyRSA-3.0.8/easyrsa sign-req server central-server'
 scp -i /home/debian/.ssh/id_rsa debian@$1:/home/debian/EasyRSA-3-0-8/pki/issued/central-server.crt /tmp/
@@ -70,7 +70,7 @@ sudo sed -i 's/^#net.ipv4.ip_forward/net.ipv4.ip_forward/;' /etc/sysctl.conf
 sudo sysctl -p
 sudo apt install ufw
 
-sudo cat << EOF >> /etc/ufw/before.rules
+cat << EOF >> /tmp/before.rules
 #
 # rules.before
 #
@@ -152,6 +152,7 @@ COMMIT
 # don't delete the 'COMMIT' line or these rules won't be processed
 COMMIT
 EOF
+sudo cp /tmp/before.rules /etc/ufw/before.rules
 
 sudo sed -i 's/^DEFAULT_FORWARD_POLICY="DROP"/DEFAULT_FORWARD_POLICY="ACCEPT"/;' /etc/default/ufw
 sudo ufw allow 443/tcp
