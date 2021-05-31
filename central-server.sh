@@ -63,10 +63,10 @@ read -p "Enter OpenVPN client hostname you want to connect: " client
 /home/debian/EasyRSA-3.0.8/easyrsa gen-req $client nopass
 cp /home/debian/EasyRSA-3.0.8/pki/private/$client.key ~/client-configs/keys/
 #transfer client request to CA for signature
-scp -i /home/debian/.ssh/id_rsa /home/debian/EasyRSA-3-0-8/pki/reqs/$client.req debian@$1:/tmp/
-ssh -i /home/debian/.ssh/id_rsa debian@$1 "sudo chown debian:debian /tmp/$client.req; ~/EasyRSA-3.0.8/easyrsa import-req /tmp/$client.req $client"
-ssh -i /home/debian/.ssh/id_rsa debian@$1 "~/EasyRSA-3.0.8/easyrsa sign-req client $client"
-scp -i /home/debian/.ssh/id_rsa debian@$1:/home/debian/EasyRSA-3-0-8/pki/issued/$client.crt /tmp
+scp -i /home/debian/.ssh/id_rsa /home/debian/EasyRSA-3.0.8/pki/reqs/$client.req debian@$1:/tmp/
+ssh -i /home/debian/.ssh/id_rsa debian@$1 "sudo chown debian:debian /tmp/$client.req; /home/debian/EasyRSA-3.0.8/easyrsa import-req /tmp/$client.req $client"
+ssh -i /home/debian/.ssh/id_rsa debian@$1 "/home/debian/EasyRSA-3.0.8/easyrsa sign-req client $client"
+scp -i /home/debian/.ssh/id_rsa debian@$1:/home/debian/EasyRSA-3.0.8/pki/issued/$client.crt /tmp
 sudo chown debian:debian /tmp/$client.crt
 cp /tmp/$client.crt ~/client-configs/keys/
 cp ta.key ~/client-configs/keys/
