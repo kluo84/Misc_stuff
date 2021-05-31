@@ -9,7 +9,7 @@ display_usage() {
   echo "Need to set up debian account on the CA server before run this script."
   echo -e "\nUsage: $0 [CA Server IP address] \n"
 }
-if [ $# -l 1 ]
+if [ $# -le 0 ]
 then
   display_usage
   exit 1
