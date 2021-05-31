@@ -4,12 +4,20 @@
 #useradd debian
 #usermod -aG sudo debian
 #su debian
-
+display_usage() {
+  echo "This script is using to set up the openvpn central server for remote client machines."
+  echo -e "\Usage: $0 [CA Server IP address] \n"
+}
+if [ $# -le 1 ]
+then
+  display_usage
+  exit 1
+fi
 #run with non-root user with sudo privilege
 ssh-keygen -t rsa
 ssh-copy-id debian@$1
 
-sudo hostnamectl set-hostname central-server
+sudo hostnamectl set-hostname deployablevpn
 cd ~
 sudo apt update -y
 sudo apt install openvpn -y
@@ -27,7 +35,7 @@ sed -i 's/^#set_var/set_var/; s/California/Texas/; s/San Francisco/San Antonio/;
 ./easyrsa build-ca nopass
 ./easyrsa gen-req server nopass
 
-sudo cp pki/private/central-server.key /etc/openvpn/
+sudo cp pki/private/server.key /etc/openvpn/
 
 #transfer server.req to CA server
 scp -i /home/debian/.ssh/id_rsa ~/EasyRSA-3.0.8/pki/reqs/server.req debian@$1:/tmp/
@@ -37,11 +45,11 @@ ssh -i /home/debian/.ssh/id_rsa debian@$1 'sed -i "s/^#set_var/set_var/; s/Calif
 ssh -i /home/debian/.ssh/id_rsa debian@$1 '~/EasyRSA-3.0.8/easyrsa init-pki'
 ssh -i /home/debian/.ssh/id_rsa debian@$1 '~/EasyRSA-3.0.8/easyrsa build-ca nopass'
 ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo cp ~/EasyRSA-3.0.8/pki/ca.crt /usr/local/share/ca-certificates/; sudo update-ca-certificates;'
-ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo chown debian:debian /tmp/central-server.req; ~/EasyRSA-3.0.8/easyrsa import-req /tmp/central-server.req central-server'
-ssh -i /home/debian/.ssh/id_rsa debian@$1 'echo "Type YES and press Enter"; ~/EasyRSA-3.0.8/easyrsa sign-req server central-server'
-scp -i /home/debian/.ssh/id_rsa debian@$1:/home/debian/EasyRSA-3-0-8/pki/issued/central-server.crt /tmp/
+ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo chown debian:debian /tmp/server.req; ~/EasyRSA-3.0.8/easyrsa import-req /tmp/server.req server'
+ssh -i /home/debian/.ssh/id_rsa debian@$1 'echo "Type YES and press Enter"; ~/EasyRSA-3.0.8/easyrsa sign-req server server'
+scp -i /home/debian/.ssh/id_rsa debian@$1:/home/debian/EasyRSA-3-0-8/pki/issued/server.crt /tmp/
 scp -i /home/debian/.ssh/id_rsa debian@$1:/home/debian/EasyRSA-3-0-8/pki/ca.crt /tmp/
-sudo mv /tmp/{central-server,ca}.crt /etc/openvpn/
+sudo mv /tmp/{server,ca}.crt /etc/openvpn/
 ./easyrsa gen-dh
 openvpn --genkey --secret ta.key
 sudo cp ta.key /etc/openvpn/
@@ -66,7 +74,7 @@ cp ca.crt ~/client-configs/keys/
 #configure OpenVPN Service
 sudo cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz /etc/openvpn/
 sudo gzip -d /etc/openvpn/server.conf.gz
-sudo sed -i 's/^;tls-auth ta.key 0/tls-auth ta.key 0/; s/^;cipher AES-256-CBC/cipher AES-256-CBC\nauth SHA256/; s/^dh dh2048.pem/dh dh.pem/; s/^port 1194/port 443/; s/^proto udp/proto tcp/; s/^explicit-exit-notify 1/explicit-exit-notify 0/; s/^cert server.crt/cert central-server.crt/; s/^key server.key/key central-server.key/;' /etc/openvpn/server.conf
+sudo sed -i 's/^;tls-auth ta.key 0/tls-auth ta.key 0/; s/^;cipher AES-256-CBC/cipher AES-256-CBC\nauth SHA256/; s/^dh dh2048.pem/dh dh.pem/; s/^port 1194/port 443/; s/^proto udp/proto tcp/; s/^explicit-exit-notify 1/explicit-exit-notify 0/;' /etc/openvpn/server.conf
 sudo sed -i 's/^#net.ipv4.ip_forward/net.ipv4.ip_forward/;' /etc/sysctl.conf
 sudo sysctl -p
 sudo apt install ufw
