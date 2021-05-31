@@ -39,17 +39,17 @@ sudo cp pki/private/server.key /etc/openvpn/
 
 #transfer server.req to CA server
 scp -i /home/debian/.ssh/id_rsa ~/EasyRSA-3.0.8/pki/reqs/server.req debian@$1:/tmp/
-ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo apt update -y; wget -P  ~/ https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.8/EasyRSA-3.0.8.tgz;tar xvf EasyRSA-3.0.8.tgz; '
-ssh -i /home/debian/.ssh/id_rsa debian@$1 'cp ~/EasyRSA-3.0.8/vars.example ~/EasyRSA-3.0.8/vars'
-ssh -i /home/debian/.ssh/id_rsa debian@$1 'sed -i "s/^#set_var/set_var/; s/California/Texas/; s/San Francisco/San Antonio/; s/me@example.net/info@motorolasolutions.com/; s/My Organizational Unit/Motorola Solutions/; " ~/EasyRSA-3.0.8/vars'
-ssh -i /home/debian/.ssh/id_rsa debian@$1 '~/EasyRSA-3.0.8/easyrsa init-pki'
-ssh -i /home/debian/.ssh/id_rsa debian@$1 '~/EasyRSA-3.0.8/easyrsa build-ca nopass'
-ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo cp ~/EasyRSA-3.0.8/pki/ca.crt /usr/local/share/ca-certificates/; sudo update-ca-certificates;'
-ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo chown debian:debian /tmp/server.req; ~/EasyRSA-3.0.8/easyrsa import-req /tmp/server.req server'
-ssh -i /home/debian/.ssh/id_rsa debian@$1 'echo "Type YES and press Enter"; ~/EasyRSA-3.0.8/easyrsa sign-req server server'
+ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo apt update -y; sudo apt install openvpn -y; wget -P  ~/ https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.8/EasyRSA-3.0.8.tgz;tar xvf EasyRSA-3.0.8.tgz; '
+ssh -i /home/debian/.ssh/id_rsa debian@$1 'rm EasyRSA-3.0.8.tgz; /home/debian/EasyRSA-3.0.8/vars.example /home/debian/EasyRSA-3.0.8/vars'
+ssh -i /home/debian/.ssh/id_rsa debian@$1 'sed -i "s/^#set_var/set_var/; s/California/Texas/; s/San Francisco/San Antonio/; s/me@example.net/info@motorolasolutions.com/; s/My Organizational Unit/Motorola Solutions/; " /home/debian/EasyRSA-3.0.8/vars'
+ssh -i /home/debian/.ssh/id_rsa debian@$1 '/home/debian/EasyRSA-3.0.8/easyrsa init-pki'
+ssh -i /home/debian/.ssh/id_rsa debian@$1 '/home/debian/EasyRSA-3.0.8/easyrsa build-ca nopass'
+ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo cp /home/debian/EasyRSA-3.0.8/pki/ca.crt /usr/local/share/ca-certificates/; sudo update-ca-certificates;'
+ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo chown debian:debian /tmp/server.req; /home/debian/EasyRSA-3.0.8/easyrsa import-req /tmp/server.req server'
+ssh -i /home/debian/.ssh/id_rsa debian@$1 'echo "Type YES and press Enter"; /home/debian/EasyRSA-3.0.8/easyrsa sign-req server server'
 scp -i /home/debian/.ssh/id_rsa debian@$1:/home/debian/EasyRSA-3-0-8/pki/issued/server.crt /tmp/
 scp -i /home/debian/.ssh/id_rsa debian@$1:/home/debian/EasyRSA-3-0-8/pki/ca.crt /tmp/
-sudo mv /tmp/{server,ca}.crt /etc/openvpn/
+sudo cp /tmp/{server,ca}.crt /etc/openvpn/
 ./easyrsa gen-dh
 openvpn --genkey --secret ta.key
 sudo cp ta.key /etc/openvpn/
