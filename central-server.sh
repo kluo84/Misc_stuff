@@ -18,7 +18,6 @@ fi
 ssh-keygen -t rsa
 ssh-copy-id debian@$1
 
-sudo hostnamectl set-hostname deployablevpn
 cd ~
 sudo apt update -y
 sudo apt install openvpn -y
@@ -40,8 +39,9 @@ sudo cp pki/private/server.key /etc/openvpn/
 
 #transfer server.req to CA server
 scp -i /home/debian/.ssh/id_rsa ~/EasyRSA-3.0.8/pki/reqs/server.req debian@$1:/tmp/
-ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo apt update -y; sudo apt install openvpn -y; wget -P  ~/ https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.8/EasyRSA-3.0.8.tgz;tar xvf EasyRSA-3.0.8.tgz; '
-ssh -i /home/debian/.ssh/id_rsa debian@$1 'rm EasyRSA-3.0.8.tgz; /home/debian/EasyRSA-3.0.8/vars.example /home/debian/EasyRSA-3.0.8/vars'
+ssh -i /home/debian/.ssh/id_rsa debian@$1 'sudo apt update -y; sudo apt install openvpn -y;'
+ssh -i /home/debian/.ssh/id_rsa debian@$1 'wget -P  ~/ https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.8/EasyRSA-3.0.8.tgz;tar xvf EasyRSA-3.0.8.tgz; sleep 5;'
+ssh -i /home/debian/.ssh/id_rsa debian@$1 'rm EasyRSA-3.0.8.tgz; cp /home/debian/EasyRSA-3.0.8/vars.example /home/debian/EasyRSA-3.0.8/vars'
 ssh -i /home/debian/.ssh/id_rsa debian@$1 'sed -i "s/^#set_var/set_var/; s/California/Texas/; s/San Francisco/San Antonio/; s/me@example.net/info@motorolasolutions.com/; s/My Organizational Unit/Motorola Solutions/; " /home/debian/EasyRSA-3.0.8/vars'
 ssh -i /home/debian/.ssh/id_rsa debian@$1 '/home/debian/EasyRSA-3.0.8/easyrsa init-pki'
 ssh -i /home/debian/.ssh/id_rsa debian@$1 '/home/debian/EasyRSA-3.0.8/easyrsa build-ca nopass'
