@@ -8,7 +8,7 @@ display_usage() {
   echo "This script is using to set up the openvpn central server for remote client machines."
   echo -e "\nUsage: $0 [CA Server IP address] \n"
 }
-if [ $# -le 1 ]
+if [ $# -l 1 ]
 then
   display_usage
   exit 1
