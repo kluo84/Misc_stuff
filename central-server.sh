@@ -1,12 +1,12 @@
 #!/bin/bash
 #usage
 # $1 is CA server IP
-#useradd debian
+#adduser debian
 #usermod -aG sudo debian
 #su debian
 display_usage() {
   echo "This script is using to set up the openvpn central server for remote client machines."
-  echo -e "\Usage: $0 [CA Server IP address] \n"
+  echo -e "\nUsage: $0 [CA Server IP address] \n"
 }
 if [ $# -le 1 ]
 then
