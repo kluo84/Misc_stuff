@@ -96,7 +96,7 @@ sudo cp /etc/openvpn/ca.crt ~/client-configs/keys/
 #configure OpenVPN Service
 sudo cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz /etc/openvpn/
 sudo gzip -d /etc/openvpn/server.conf.gz
-sudo sed -i 's/^;tls-auth ta.key 0/tls-auth ta.key 0/; s/^cipher AES-256-CBC/cipher AES-256-CBC\nauth SHA256/; s/^dh dh2048.pem/dh dh.pem/; s/^port 1194/port 443/; s/^proto udp/proto tcp/; s/^explicit-exit-notify 1/explicit-exit-notify 0\n/;' /etc/openvpn/server.conf
+sudo sed -i 's/^#user nobody/user nobody/; s/^#group nogroup/group nogroup/; s/^;tls-auth ta.key 0/tls-auth ta.key 0/; s/^cipher AES-256-CBC/cipher AES-256-CBC\nauth SHA256/; s/^dh dh2048.pem/dh dh.pem/; s/^port 1194/port 443/; s/^proto udp/proto tcp/; s/^explicit-exit-notify 1/explicit-exit-notify 0\n/;' /etc/openvpn/server.conf
 sudo sed -i 's/^#net.ipv4.ip_forward/net.ipv4.ip_forward/;' /etc/sysctl.conf
 sudo sysctl -p
 sudo apt install ufw
@@ -199,7 +199,7 @@ sudo systemctl enable openvpn@server
 mkdir -p ~/client-configs/files
 cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/client-configs/base.conf
 host_ip=$(hostname -I | awk '{print $1}')
-sed -i "s/^tls-auth ta.key 1/tls-auth ta.key 0/; s/^proto udp/proto tcp/; s/^remote my-server-1 1194/remote $host_ip 443/; s/^cert client.crt/cert $client.crt/; s/^key client.key/key $client.key/; s/^cipher AES-256-CBC/cipher AES-256-CBC\nauth SHA256/; s/^;mute 20/;mute 20\nkey-direction 1/;" ~/client-configs/base.conf
+sed -i "s/^#user nobody/user nobody/; s/^#group nogroup/group nogroup/; s/^tls-auth ta.key 1/tls-auth ta.key 0/; s/^proto udp/proto tcp/; s/^remote my-server-1 1194/remote $host_ip 443/; s/^cert client.crt/cert $client.crt/; s/^key client.key/key $client.key/; s/^cipher AES-256-CBC/cipher AES-256-CBC\nauth SHA256/; s/^;mute 20/;mute 20\nkey-direction 1/;" ~/client-configs/base.conf
 sudo systemctl status openvpn@server
 echo -e "${GREEN}[+]Check ~/client-configs/keys/ for client files${NC}"
 echo -e "${GREEN}[+]DONE...${NC}"
