@@ -199,7 +199,7 @@ sudo systemctl enable openvpn@server
 mkdir -p ~/client-configs/files
 cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/client-configs/base.conf
 host_ip=$(hostname -I | awk '{print $1}')
-sed -i "s/^;user nobody/user nobody/; s/^;group nogroup/group nogroup/; s/^tls-auth ta.key 1/tls-auth ta.key 0/; s/^proto udp/proto tcp/; s/^remote my-server-1 1194/remote $host_ip 443/; s/^cert client.crt/cert $client.crt/; s/^key client.key/key $client.key/; s/^cipher AES-256-CBC/cipher AES-256-CBC\nauth SHA256/; s/^;mute 20/;mute 20\nkey-direction 1/;" ~/client-configs/base.conf
+sed -i "s/^;user nobody/user nobody/; s/^;group nogroup/group nogroup/; s/^proto udp/proto tcp/; s/^remote my-server-1 1194/remote $host_ip 443/; s/^cert client.crt/cert $client.crt/; s/^key client.key/key $client.key/; s/^cipher AES-256-CBC/cipher AES-256-CBC\nauth SHA256/; s/^;mute 20/;mute 20\nkey-direction 1/;" ~/client-configs/base.conf
 sudo systemctl status openvpn@server
 echo -e "${GREEN}[+]Check ~/client-configs/keys/ for client files${NC}"
 echo -e "${GREEN}[+]DONE...${NC}"
