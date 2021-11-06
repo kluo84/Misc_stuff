@@ -76,6 +76,12 @@ impacket-wmiexec <domain>/<user>@<IP> -hashes :<hash>
 **CS**
 --------------------
 - ./teamserver <ip> <password> 2019-MM-DD /path/to/C2/c2.profile
+**kerbrute**
+----------------------------------
+./kerbrute --dc #ip_dc -d domain_name userenum users.txt --downgrade -> to etype 23 format for hashcat
+
+
+-----------------------------------
 
 **BloodHound**
 --------------------
