@@ -43,7 +43,16 @@ Step 5: Proper shutdown ettercap: Select Mitm > Stop mitm attack and Start -> St
 Discovery - nmap -Pn -n -sS -p 21-23,25,53,111,137,139,445,80,443,8443,8080 --min-hostgroup 255 --min-rtt-timeout 0ms --max-rtt-timeout 100ms --max-retries 1 --max-scan-delay 0 --min-rate 2000 -oA CLIENT-# -vvv --open -iL <IPLIST>
 
 Full - nmap -Pn -n -sS -p- -sV --min-hostgroup 255 --min-rtt-timeout 25ms --max-rtt-timeout 100ms --max-retries 1 --max-scan-delay 0 --min-rate 1000 -oA <customer-#> -vvv --open -iL <IPLIST>
+------------------------------------------------
+***find domain controller***
+Note***: needs to sweep for port 88 and edit the /etc/resolv.conf to the found IP
 
+then use the following method:
+nslookup -type=srv _ldap._tcp.dc._msdcs."acme.com" --> change acme.com to target Domain name
+--------------------
+or 
+https://github.com/puzzlepeaches/scripts/blob/main/dcfinder.sh this sometimes works dependent on the network for quick DC enumeration
+------------------------------------------------
 **Responder/Ntlmrelayx**
 --------------------
 Responder -
