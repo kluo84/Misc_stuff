@@ -117,11 +117,11 @@ bloodhound-python -u user@full-domain -p 'PASS' -d full-domain -ns dc-ip -c all
 -----------------------------------4
 **BloodHound**
 --------------------
+- execute-assembly /path/to/Collectors/SharpHound.exe --disablekerberossigning --CollectionMethod "All,GPOLocalGroup" --outputdirectory "C:\Windows\Tasks" --Domain domain
 - execute-assembly /path/to/sharphound.exe --CollectionMethod  All --NoSaveCache --CompressData
 - powershell-import sharphound.ps1
 - powerpick Invoke-BloodHound -CollectionMethod  Session -LoopDelay 120 MaxLoopTime 0d0h10m0s
-- powerpick Invoke-BloodHound --CollectionMethod All --NoSaveCache --RandomFilenames
-- powerpick Invoke-BloodHound --CollectionMethod All
+- powerpick Invoke-BloodHound -CollectionMethod All
 - Download Bloodhound.zip
 
 ## Inveigh ##
