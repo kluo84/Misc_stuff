@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-  "title": "<a href=http://evil.com>Click here</a>",
-  "description": "Please to click Terms of service",
-  "termsOfService": "javascript:alert(document.cookie)",
+  "title": "Delta Risk Testing",
+  "description": "Please read and accept the Terms of service before viewing the page.",
+  "termsOfService": "<a href="https://google.com"></a>",
   "version": "1.0.1"
   }
 }
