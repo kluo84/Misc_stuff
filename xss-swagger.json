@@ -5,4 +5,5 @@
   "description": "Please to click Terms of service",
   "termsOfService": "javascript:alert(document.cookie)",
   "version": "1.0.1"
+  }
 }
