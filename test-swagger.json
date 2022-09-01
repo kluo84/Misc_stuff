@@ -3,7 +3,7 @@
   "info": {
   "title": "Delta Risk Testing",
   "description": "Please read and accept the Terms of service before viewing the page.",
-  "termsOfService": "<a href='https://google.com'></a>",
+  "termsOfService": "javascript:window.location.replace('http://www.google.com')",
   "version": "1.0.1"
   }
 }
