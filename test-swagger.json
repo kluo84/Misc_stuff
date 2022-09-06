@@ -1,9 +1,0 @@
-{
-  "swagger": "2.0",
-  "info": {
-  "title": "Delta Risk Testing",
-  "description": "Please read and accept the Terms of service before viewing the page.",
-  "termsOfService": "<script>window.location.href = 'www.google.com';</script>",
-  "version": "1.0.1"
-  }
-}
