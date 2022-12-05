@@ -134,7 +134,7 @@ impacket-wmiexec <domain>/<user>@<IP> -hashes :<hash>
 -----------------------------------
 ****Bloodhound-python****
 -----------------------------------
-bloodhound-python -u user@full-domain -p 'PASS' -d full-domain -ns dc-ip -c all
+bloodhound-python -u user -d domain -v -c All -ns dc-ip -dc dc.domain
 -----------------------------------
 **BloodHound**NEW*4.x***
 ------------------------------------
