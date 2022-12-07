@@ -151,7 +151,8 @@ set tasks_dns_proxy_max_size "71680";
 - powerpick Invoke-BloodHound -CollectionMethod  Session -LoopDelay 120 MaxLoopTime 0d0h10m0s
 - powerpick Invoke-BloodHound -CollectionMethod All
 - Download Bloodhound.zip
-
+# Base64 powershell
+echo "iex(command)" | iconv --to-code UTF-16LE | base64 -w 0
 ## Inveigh ##
 - powershell-import inveigh.ps1
 - powerpick Invoke-Inveigh ConsoleOutput Y
