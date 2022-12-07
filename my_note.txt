@@ -135,6 +135,9 @@ impacket-wmiexec <domain>/<user>@<IP> -hashes :<hash>
 ****Bloodhound-python****
 -----------------------------------
 bloodhound-python -u user -d domain -v -c All -ns dc-ip -dc dc.domain
+
+#get usernames from bloodhound json
+cat 20221205133751_users.json| jq '.data|.[].Properties.name' | tr [:upper:] [:lower:] | tr -d '"' | tr -d '@domain_name'
 -----------------------------------
 **BloodHound**NEW*4.x***
 ------------------------------------
