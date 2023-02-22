@@ -11,7 +11,7 @@
                 "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
                 "name": "XSS"
             }
-        ]
+        ],
             "email": "test@domain.tld"
         },
         "license": {
@@ -52,4 +52,3 @@
         }
     }
 }
-
