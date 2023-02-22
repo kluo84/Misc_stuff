@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "OpenAPI Bug Test",
+        "title": "<h1>test Swagger 3.0</h1>",
         "description": "<h1>test Swagger 3.0</h1>",
         "contact": {
             "name": "<a href=https://github.com> test",
@@ -15,7 +15,7 @@
             "email": "test@domain.tld"
         },
         "license": {
-            "name": "proprietary"
+            "name": "<h1>test Swagger 3.0</h1>"
         },
         "version": "1.0"
     },
@@ -33,7 +33,7 @@
     "paths": {
         "/v1/my-operation": {
             "get": {
-                "summary": "Some operation.",
+                "summary": "<h1>test Swagger 3.0</h1>",
                 "description": "Some REST operation.",
                 "security": [],
                 "tags": [
