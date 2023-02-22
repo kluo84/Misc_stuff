@@ -1,0 +1,43 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "OpenAPI Bug Test",
+        "description": "OpenAPI specification Test in GitLab",
+        "contact": {
+            "name": "Test",
+            "url": "http://www.test.com/",
+            "email": "test@domain.tld"
+        },
+        "license": {
+            "name": "proprietary"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+        "url": "https://test.domain.tld",
+        "description": "Test Server"
+        }
+    ],
+    "paths": {
+        "/v1/my-operation": {
+            "get": {
+                "summary": "Some operation.",
+                "description": "Some REST operation.",
+                "security": [],
+                "tags": [
+                    "Test"
+                ],
+                "operationId": "getSomething",
+                "responses": {
+                    "204": {
+                        "description": "Indicates, the request was successful."
+                    },
+                    "500": {
+                        "description": "Indicates, the request failed."
+                    }
+                }
+            }
+        }
+    }
+}
