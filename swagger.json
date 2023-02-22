@@ -1,11 +1,11 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "<h1>test Swagger 3.0</h1>",
-        "description": "<h1>test Swagger 3.0</h1>",
+        "title": "<h1>title</h1><h2>title</h2>",
+        "description": "<h1>description</h1>",
         "contact": {
-            "name": "<a href=https://github.com> test",
-            "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
+            "name": "click me",
+            "url": "https://evil.com",
             "urls": [
             {
                 "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
@@ -15,16 +15,16 @@
             "email": "test@domain.tld"
         },
         "license": {
-            "name": "<h1>test Swagger 3.0</h1>"
+            "name": "<h1>license</h1>"
         },
         "version": "1.0"
     },
     "servers": [
         {
-        "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
+        "url": "https://fake_server.com",
         "urls": [
         {
-            "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
+            "url": "https://fake_server.com",
             "name": "Halloween"
         }
                 ]
@@ -33,7 +33,7 @@
     "paths": {
         "/v1/my-operation": {
             "get": {
-                "summary": "<h1>test Swagger 3.0</h1>",
+                "summary": "<h1>summary</h1>",
                 "description": "Some REST operation.",
                 "security": [],
                 "tags": [
