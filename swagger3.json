@@ -1,10 +1,10 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "OpenAPI Bug Test",
-        "description": "OpenAPI specification Test in GitLab",
+        "title": "<h1>test Swagger 3.0</h1>",
+        "description": "<h1>test Swagger 3.0</h1>",
         "contact": {
-            "name": "Test",
+            "name": "<a href=https://github.com> test",
             "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
             "urls": [
             {
@@ -15,7 +15,7 @@
             "email": "test@domain.tld"
         },
         "license": {
-            "name": "proprietary"
+            "name": "<h1>test Swagger 3.0</h1>"
         },
         "version": "1.0"
     },
@@ -33,7 +33,7 @@
     "paths": {
         "/v1/my-operation": {
             "get": {
-                "summary": "Some operation.",
+                "summary": "<h1>test Swagger 3.0</h1>",
                 "description": "Some REST operation.",
                 "security": [],
                 "tags": [
