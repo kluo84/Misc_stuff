@@ -1,12 +1,55 @@
 {
     "openapi": "3.0.0",
-    {
-    "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
-    "urls": [
+    "info": {
+        "title": "OpenAPI Bug Test",
+        "description": "OpenAPI specification Test in GitLab",
+        "contact": {
+            "name": "Test",
+            "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
+            "urls": [
+            {
+                "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
+                "name": "XSS"
+            }
+        ]
+            "email": "test@domain.tld"
+        },
+        "license": {
+            "name": "proprietary"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+        "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
+        "urls": [
         {
             "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
             "name": "Halloween"
         }
-    ]
+                ]
+        }
+    ],
+    "paths": {
+        "/v1/my-operation": {
+            "get": {
+                "summary": "Some operation.",
+                "description": "Some REST operation.",
+                "security": [],
+                "tags": [
+                    "Test"
+                ],
+                "operationId": "getSomething",
+                "responses": {
+                    "204": {
+                        "description": "Indicates, the request was successful."
+                    },
+                    "500": {
+                        "description": "Indicates, the request failed."
+                    }
+                }
+            }
+        }
     }
 }
+
