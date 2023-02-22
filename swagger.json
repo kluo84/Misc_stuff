@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "OpenAPI Bug Test",
-        "description": "<form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id="</textarea><img onerror=alert('textarea') src=1>"></form>",
+        "description": "<form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id=\"</textarea><img onerror=alert('textarea') src=1>\"></form>",
         "contact": {
             "name": "Test",
             "url": "http://www.test.com/",
