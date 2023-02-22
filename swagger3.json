@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "<h1>title</h1><h2>title</h2>",
-        "description": "<h1>description</h1>",
+        "description": "<h1>description</h1><s>html injection</s>",
         "contact": {
             "name": "click me",
             "url": "https://evil.com",
