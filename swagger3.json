@@ -5,7 +5,13 @@
         "description": "OpenAPI specification Test in GitLab",
         "contact": {
             "name": "Test",
-            "url": "http://www.test.com/",
+            "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
+            "urls": [
+            {
+                "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
+                "name": "XSS"
+            }
+        ]
             "email": "test@domain.tld"
         },
         "license": {
@@ -15,8 +21,13 @@
     },
     "servers": [
         {
-        "url": "https://test.domain.tld",
-        "description": "Test Server"
+        "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
+        "urls": [
+        {
+            "url": "https://raw.githubusercontent.com/kluo84/Misc_stuff/master/test-swagger3-xss.yaml",
+            "name": "Halloween"
+        }
+                ]
         }
     ],
     "paths": {
