@@ -1,0 +1,11 @@
+(function() {
+    let urls = Array.from(document.querySelectorAll('li.text-overflow'))
+        .map(li => li.textContent.match(/https?:\/\/[^ ]+/))
+        .filter(Boolean)
+        .map(match => match[0].replace('Pending', '').trim());
+
+    let formattedList = urls.join('\n');
+    copy(formattedList);
+})();
+
+      
