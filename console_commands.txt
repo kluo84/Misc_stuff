@@ -8,4 +8,13 @@
     copy(formattedList);
 })();
 
-      
+
+#Get targets 
+(function() {
+    let urls = Array.from(document.querySelectorAll('.target-show-scope-url-list-target-url .external-link'))
+        .map(link => link.href.trim());
+
+    let formattedList = urls.join('\n');
+    copy(formattedList);
+})();
+
