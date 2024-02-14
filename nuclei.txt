@@ -1,0 +1,2 @@
+//Nuclei command
+nuclei -l list_urls.txt -es info -iserver burp-collab -rl 25 -mhe 3 -retries 3 -timeout 1 -etags ssl,network,local -s high,critical
